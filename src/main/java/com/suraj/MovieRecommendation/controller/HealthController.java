@@ -11,18 +11,18 @@ public class HealthController {
     @GetMapping("/admin/health-check")
     public ResponseEntity<String> healthCheckAdmin(){
         try {
-            return new ResponseEntity<>("Welcome, Admin", HttpStatus.OK);
+            return new ResponseEntity<>("Welcome, Admin!", HttpStatus.OK);
         }catch (Exception e){
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("There is some issue in Application.", HttpStatus.BAD_REQUEST);
         }
     }
 
     @GetMapping("/user/health-check")
     public ResponseEntity<String> healthCheckUser(){
         try {
-            return new ResponseEntity<>("Welcome, User", HttpStatus.OK);
+            return new ResponseEntity<>("Welcome, User!", HttpStatus.OK);
         }catch (Exception e){
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("There is some issue in Application.", HttpStatus.BAD_REQUEST);
         }
     }
 }

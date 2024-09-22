@@ -1,7 +1,6 @@
 package com.suraj.MovieRecommendation.controller;
 
 import com.suraj.MovieRecommendation.entity.Movie;
-import com.suraj.MovieRecommendation.repository.MovieRepository;
 import com.suraj.MovieRecommendation.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,13 +8,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/movie")
 public class MovieController {
-
-    @Autowired
-    private MovieRepository movieRepository;
 
     @Autowired
     private MovieService movieService;
@@ -23,19 +20,29 @@ public class MovieController {
     @PostMapping("/add")
     public ResponseEntity<Movie> createMovie(@RequestBody Movie movie) {
         try {
-            Movie savedMovie = movieService.createMovie(movie);
-            return new ResponseEntity<>(savedMovie, HttpStatus.OK);
+            return new ResponseEntity<>(movieService.createMovie(movie), HttpStatus.OK);
         }catch (Exception e){
+            System.out.println(e.getMessage());
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 
-    @GetMapping("/get-all")
+    @GetMapping("/all")
     public ResponseEntity<List<Movie>> getAllMovies() {
         try {
-            List<Movie> savedMovies = movieService.getAllMovies();
-            if (savedMovies != null) {
-                return new ResponseEntity<>(savedMovies, HttpStatus.OK);
+            return new ResponseEntity<>(movieService.getAllMovies(), HttpStatus.OK);
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+    }
+
+    @GetMapping("/id/{id}")
+    public ResponseEntity<Movie> getMovieById(@PathVariable Long id) {
+        try {
+            Optional<Movie> movie = movieService.getMovieById(id);
+            if (movie.isPresent()) {
+                return new ResponseEntity<>(movie.get(), HttpStatus.OK);
             }
             throw new RuntimeException("No movie found!");
         }catch (Exception e){
@@ -44,14 +51,10 @@ public class MovieController {
         }
     }
 
-    @GetMapping("/get/{id}")
-    public ResponseEntity<Movie> getMovieById(@PathVariable Long id) {
+    @GetMapping("/genre/{genre}")
+    public ResponseEntity<List<Movie>> getMovieByName(@PathVariable String genre) {
         try {
-            Movie movie = movieService.getMovieById(id);
-            if (movie != null) {
-                return new ResponseEntity<>(movie, HttpStatus.OK);
-            }
-            throw new RuntimeException("No movie found!");
+            return new ResponseEntity<>(movieService.getMovieByGenre(genre), HttpStatus.OK);
         }catch (Exception e){
             System.out.println(e.getMessage());
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -59,10 +62,10 @@ public class MovieController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Void> deleteMovie(@PathVariable Long id) {
+    public ResponseEntity<String> deleteMovie(@PathVariable Long id) {
         try {
             if (movieService.deleteMovie(id)) {
-                return new ResponseEntity<>(HttpStatus.OK);
+                return new ResponseEntity<>("Movie deleted successfully", HttpStatus.OK);
             }
             throw new RuntimeException("No movie found!");
         }catch (Exception e){
@@ -72,16 +75,12 @@ public class MovieController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<Movie> updateMovie(@PathVariable Long id, @RequestBody Movie movieDetails) {
+    public ResponseEntity<Movie> updateMovie(@RequestBody Movie movie, @PathVariable Long id) {
         try {
-            Movie movie = movieService.updateMovie(id, movieDetails);
-            if (movie != null) {
-                return new ResponseEntity<>(movie, HttpStatus.OK);
-            }
-            throw new RuntimeException("No movie found!");
+            return new ResponseEntity<>(movieService.updateMovie(movie, id), HttpStatus.OK);
         }catch (Exception e){
             System.out.println(e.getMessage());
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
     }
 

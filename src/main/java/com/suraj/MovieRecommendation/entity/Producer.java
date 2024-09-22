@@ -18,7 +18,4 @@ public class Producer {
     private Long producerId;
     private String producerName;
     private String productionCompany;
-
-    @OneToMany(mappedBy = "producer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<Movie> movies;
 }

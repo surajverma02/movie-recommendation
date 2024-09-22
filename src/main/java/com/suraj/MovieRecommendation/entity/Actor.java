@@ -18,8 +18,5 @@ public class Actor {
     private Long actorId;
     private String actorName;
     private String actorRole;
-
-    @ManyToMany(mappedBy = "actors", fetch = FetchType.LAZY)
-    private Set<Movie> movies;
 }
 

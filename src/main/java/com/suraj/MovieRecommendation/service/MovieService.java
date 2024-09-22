@@ -14,38 +14,50 @@ public class MovieService {
     @Autowired
     private MovieRepository movieRepository;
 
+//    POST METHODS
+
     public Movie createMovie(Movie movie) {
+        movie.setGenre(movie.getGenre().toLowerCase());
         return movieRepository.save(movie);
     }
+
+//    GET METHODS
 
     public List<Movie> getAllMovies() {
         return movieRepository.findAll();
     }
 
-    public Movie getMovieById( Long id) {
-        Optional<Movie> movie = movieRepository.findById(id);
-        return movie.orElse(null);
+    public Optional<Movie> getMovieById(Long id) {
+        return movieRepository.findById(id);
     }
 
-    public Boolean deleteMovie(Long id) {
-        Optional<Movie> movie = movieRepository.findById(id);
-        if (movie.isPresent()) {
-            movieRepository.delete(movie.get());
+    public List<Movie> getMovieByGenre(String genre) {
+        return movieRepository.findByGenre(genre);
+    }
+
+//    DELETE METHODS
+
+    public Boolean deleteMovie(Long movieId) {
+        try {
+            movieRepository.deleteById(movieId);
             return true;
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            return false;
         }
-        return false;
     }
 
-    public Movie updateMovie(Long id, Movie movieDetails) {
-        Optional<Movie> movie = movieRepository.findById(id);
-        if (movie.isPresent()) {
-            Movie updatedMovie = movie.get();
-            updatedMovie.setMovieName(movieDetails.getMovieName());
-            updatedMovie.setGenre(movieDetails.getGenre());
-            updatedMovie.setYear(movieDetails.getYear());
-            movieRepository.save(updatedMovie);
-            return updatedMovie;
+//    UPDATE METHODS
+
+    public Movie updateMovie(Movie movie, Long movieId) {
+        Optional<Movie> oldMovie = movieRepository.findById(movieId);
+        if (oldMovie.isPresent()) {
+            Movie updatedMovie = oldMovie.get();
+            updatedMovie.setMovieName(movie.getMovieName());
+            updatedMovie.setGenre(movie.getGenre().toLowerCase());
+            updatedMovie.setYear(movie.getYear());
+            return movieRepository.save(updatedMovie);
         }
-        return null;
+        throw new RuntimeException("Producer not found!");
     }
 }

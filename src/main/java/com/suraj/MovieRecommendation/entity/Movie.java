@@ -18,16 +18,4 @@ public class Movie {
     private String movieName;
     private String genre;
     private Integer year;
-
-    @ManyToOne
-    @JoinTable(name = "movie_producer")
-    private Producer producer;
-
-    @ManyToMany
-    @JoinTable(
-            name = "movie_actor",
-            joinColumns = @JoinColumn(name = "movie_id"),
-            inverseJoinColumns = @JoinColumn(name = "actor_id")
-    )
-    private Set<Actor> actors;
 }
