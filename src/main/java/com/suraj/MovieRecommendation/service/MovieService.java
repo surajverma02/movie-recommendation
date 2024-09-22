@@ -1,7 +1,11 @@
 package com.suraj.MovieRecommendation.service;
 
+import com.suraj.MovieRecommendation.entity.Actor;
 import com.suraj.MovieRecommendation.entity.Movie;
+import com.suraj.MovieRecommendation.entity.Producer;
+import com.suraj.MovieRecommendation.entity.Wishlist;
 import com.suraj.MovieRecommendation.repository.MovieRepository;
+import com.suraj.MovieRecommendation.repository.ProducerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +17,12 @@ public class MovieService {
 
     @Autowired
     private MovieRepository movieRepository;
+
+    @Autowired
+    private ProducerService producerService;
+
+    @Autowired
+    private ActorService actorService;
 
 //    POST METHODS
 
@@ -58,6 +68,32 @@ public class MovieService {
             updatedMovie.setYear(movie.getYear());
             return movieRepository.save(updatedMovie);
         }
-        throw new RuntimeException("Producer not found!");
+        throw new RuntimeException("Movie not found!");
+    }
+
+    public Movie addProducerToMovie(Long movieId, Long producerId){
+        Optional<Movie> movieDetail = movieRepository.findById(movieId);
+        if (movieDetail.isPresent()){
+            Optional<Producer> producer = producerService.getProducerById(producerId);
+            if (producer.isPresent()) {
+                Movie customMovie = movieDetail.get();
+                customMovie.setProducer(producer.get());
+                return movieRepository.save(customMovie);
+            }
+        }
+        throw new RuntimeException("Movie not found!");
+    }
+
+    public Movie addActorToMovie(Long movieId, Long actorId){
+        Optional<Movie> movieDetail = movieRepository.findById(movieId);
+        if (movieDetail.isPresent()){
+            Optional<Actor> actor = actorService.getActorById(actorId);
+            if (actor.isPresent()) {
+                Movie customMovie = movieDetail.get();
+                customMovie.getActors().add(actor.get());
+                return movieRepository.save(customMovie);
+            }
+        }
+        throw new RuntimeException("Movie not found!");
     }
 }

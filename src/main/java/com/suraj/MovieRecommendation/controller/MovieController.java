@@ -84,4 +84,23 @@ public class MovieController {
         }
     }
 
+    @GetMapping("/add-producer/{movieId}/{producerId}")
+    public ResponseEntity<Movie> addProducerToMovie(@PathVariable Long movieId, @PathVariable Long producerId){
+        try {
+            return new ResponseEntity<>(movieService.addProducerToMovie(movieId, producerId), HttpStatus.OK);
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+    @GetMapping("/add-actor/{movieId}/{actorId}")
+    public ResponseEntity<Movie> addActorToMovie(@PathVariable Long movieId, @PathVariable Long actorId){
+        try {
+            return new ResponseEntity<>(movieService.addActorToMovie(movieId, actorId), HttpStatus.OK);
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
 }

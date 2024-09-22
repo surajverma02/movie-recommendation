@@ -1,7 +1,9 @@
 package com.suraj.MovieRecommendation.service;
 
-import com.suraj.MovieRecommendation.entity.User;
+import com.suraj.MovieRecommendation.entity.*;
+import com.suraj.MovieRecommendation.repository.FavouriteRepository;
 import com.suraj.MovieRecommendation.repository.UserRepository;
+import com.suraj.MovieRecommendation.repository.WishlistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,12 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private FavouriteRepository favouriteRepository;
+
+    @Autowired
+    private WishlistRepository wishlistRepository;
 
 
 //    POST METHODS
@@ -91,6 +99,32 @@ public class UserService {
             User customUser = oldUser.get();
             customUser.getRoles().add("ADMIN");
             return userRepository.save(customUser);
+        }
+        throw new RuntimeException("User not found!");
+    }
+
+    public User addFavouriteToUser(Long userId, Long favouriteId){
+        Optional<User> userDetail = userRepository.findById(userId);
+        if (userDetail.isPresent()){
+            Optional<Favourite> favourite = favouriteRepository.findById(favouriteId);
+            if (favourite.isPresent()) {
+                User customUser = userDetail.get();
+                customUser.setFavourite(favourite.get());
+                return userRepository.save(customUser);
+            }
+        }
+        throw new RuntimeException("User not found!");
+    }
+
+    public User addWishlistToUser(Long userId, Long wishlistId){
+        Optional<User> userDetail = userRepository.findById(userId);
+        if (userDetail.isPresent()){
+            Optional<Wishlist> wishlist = wishlistRepository.findById(wishlistId);
+            if (wishlist.isPresent()) {
+                User customUser = userDetail.get();
+                customUser.setWishlist(wishlist.get());
+                return userRepository.save(customUser);
+            }
         }
         throw new RuntimeException("User not found!");
     }

@@ -20,4 +20,7 @@ public class User{
     private String password;
 
     private List<String> roles = new ArrayList<>();
+
+    private Favourite favourite;
+    private Wishlist wishlist;
 }

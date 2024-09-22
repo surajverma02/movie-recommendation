@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Data
@@ -18,4 +18,8 @@ public class Movie {
     private String movieName;
     private String genre;
     private Integer year;
+
+    private Producer producer;
+
+    private List<Actor> actors = new ArrayList<>();
 }
