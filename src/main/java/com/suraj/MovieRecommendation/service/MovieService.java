@@ -3,9 +3,7 @@ package com.suraj.MovieRecommendation.service;
 import com.suraj.MovieRecommendation.entity.Actor;
 import com.suraj.MovieRecommendation.entity.Movie;
 import com.suraj.MovieRecommendation.entity.Producer;
-import com.suraj.MovieRecommendation.entity.Wishlist;
 import com.suraj.MovieRecommendation.repository.MovieRepository;
-import com.suraj.MovieRecommendation.repository.ProducerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

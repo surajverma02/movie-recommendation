@@ -1,8 +1,8 @@
 package com.suraj.MovieRecommendation.service;
 
-import com.suraj.MovieRecommendation.entity.Favourite;
 import com.suraj.MovieRecommendation.entity.Movie;
 import com.suraj.MovieRecommendation.entity.Wishlist;
+import com.suraj.MovieRecommendation.repository.MovieRepository;
 import com.suraj.MovieRecommendation.repository.WishlistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,10 +14,13 @@ import java.util.Optional;
 public class WishlistService {
 
     @Autowired
+    private MovieService movieService;
+
+    @Autowired
     private WishlistRepository wishlistRepository;
 
     @Autowired
-    private MovieService movieService;
+    private MovieRepository movieRepository;
 
 //    POST METHODS
 
@@ -51,13 +54,16 @@ public class WishlistService {
 //    UPDATE METHODS
 
     public Wishlist addMovieToWishlist(Long wishlistId, Long movieId){
-        Optional<Wishlist> oldWishlist = wishlistRepository.findById(wishlistId);
-        if (oldWishlist.isPresent()){
-            Optional<Movie> movie = movieService.getMovieById(movieId);
-            if (movie.isPresent()) {
-                Wishlist customWishlist = oldWishlist.get();
-                customWishlist.getWishlistMovie().add(movie.get());
-                return wishlistRepository.save(customWishlist);
+        Optional<Wishlist> wishlistDetails = wishlistRepository.findById(wishlistId);
+        if (wishlistDetails.isPresent()){
+            Optional<Movie> movieDetails = movieService.getMovieById(movieId);
+            if (movieDetails.isPresent()) {
+                Wishlist wishlist = wishlistDetails.get();
+                Movie movie = movieDetails.get();
+                movie.getWishlist().add(wishlist);
+                wishlist.getWishlistMovie().add(movie);
+                movieRepository.save(movie);
+                return wishlistRepository.save(wishlist);
             }
         }
         throw new RuntimeException("Wishlist not found!");

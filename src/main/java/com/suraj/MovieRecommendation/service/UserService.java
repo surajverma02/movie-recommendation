@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -104,13 +103,16 @@ public class UserService {
     }
 
     public User addFavouriteToUser(Long userId, Long favouriteId){
-        Optional<User> userDetail = userRepository.findById(userId);
-        if (userDetail.isPresent()){
-            Optional<Favourite> favourite = favouriteRepository.findById(favouriteId);
-            if (favourite.isPresent()) {
-                User customUser = userDetail.get();
-                customUser.setFavourite(favourite.get());
-                return userRepository.save(customUser);
+        Optional<Favourite> favouriteDetails = favouriteRepository.findById(favouriteId);
+        if (favouriteDetails.isPresent()) {
+            Optional<User> userDetail = userRepository.findById(userId);
+            if (userDetail.isPresent()){
+                    User user = userDetail.get();
+                    Favourite favourite = favouriteDetails.get();
+                    user.setFavourite(favourite);
+                    favourite.setUser(user);
+                    favouriteRepository.save(favourite);
+                    return userRepository.save(user);
             }
         }
         throw new RuntimeException("User not found!");
@@ -119,11 +121,14 @@ public class UserService {
     public User addWishlistToUser(Long userId, Long wishlistId){
         Optional<User> userDetail = userRepository.findById(userId);
         if (userDetail.isPresent()){
-            Optional<Wishlist> wishlist = wishlistRepository.findById(wishlistId);
-            if (wishlist.isPresent()) {
-                User customUser = userDetail.get();
-                customUser.setWishlist(wishlist.get());
-                return userRepository.save(customUser);
+            Optional<Wishlist> wishlistDetails = wishlistRepository.findById(wishlistId);
+            if (wishlistDetails.isPresent()) {
+                User user = userDetail.get();
+                Wishlist wishlist = wishlistDetails.get();
+                wishlist.setUser(user);
+                user.setWishlist(wishlist);
+                wishlistRepository.save(wishlist);
+                return userRepository.save(user);
             }
         }
         throw new RuntimeException("User not found!");

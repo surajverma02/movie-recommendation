@@ -3,10 +3,12 @@ package com.suraj.MovieRecommendation.service;
 import com.suraj.MovieRecommendation.entity.Actor;
 import com.suraj.MovieRecommendation.repository.ActorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class ActorService {
 
     @Autowired

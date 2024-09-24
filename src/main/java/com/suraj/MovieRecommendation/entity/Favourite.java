@@ -11,6 +11,7 @@ import java.util.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "favourite")
 public class Favourite {
 
     @Id
@@ -18,5 +19,10 @@ public class Favourite {
     private Long favouriteId;
     private String favouriteName;
 
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @ManyToMany(mappedBy = "favourite", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Movie> favouriteMovie = new ArrayList<>();
 }

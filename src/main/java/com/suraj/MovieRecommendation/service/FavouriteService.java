@@ -3,6 +3,7 @@ package com.suraj.MovieRecommendation.service;
 import com.suraj.MovieRecommendation.entity.Favourite;
 import com.suraj.MovieRecommendation.entity.Movie;
 import com.suraj.MovieRecommendation.repository.FavouriteRepository;
+import com.suraj.MovieRecommendation.repository.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,10 +14,13 @@ import java.util.Optional;
 public class FavouriteService {
 
     @Autowired
+    private MovieService movieService;
+
+    @Autowired
     private FavouriteRepository favouriteRepository;
 
     @Autowired
-    private MovieService movieService;
+    private MovieRepository movieRepository;
 
 //    POST METHODS
 
@@ -50,15 +54,18 @@ public class FavouriteService {
 //    UPDATE METHODS
 
     public Favourite addMovieToFavourite(Long favouriteId, Long movieId){
-        Optional<Favourite> oldFavourite = favouriteRepository.findById(favouriteId);
-        if (oldFavourite.isPresent()){
-            Optional<Movie> movie = movieService.getMovieById(movieId);
-            if (movie.isPresent()) {
-                Favourite customFavourite = oldFavourite.get();
-                customFavourite.getFavouriteMovie().add(movie.get());
-                return favouriteRepository.save(customFavourite);
+        Optional<Favourite> favouriteDetails = favouriteRepository.findById(favouriteId);
+        if (favouriteDetails.isPresent()){
+            Optional<Movie> movieDetails = movieService.getMovieById(movieId);
+            if (movieDetails.isPresent()) {
+                Favourite favourite = favouriteDetails.get();
+                Movie movie = movieDetails.get();
+                movie.getFavourite().add(favourite);
+                favourite.getFavouriteMovie().add(movie);
+                movieRepository.save(movie);
+                return favouriteRepository.save(favourite);
             }
         }
-        throw new RuntimeException("FavouriteList not found!");
+        throw new RuntimeException("Favourite List not found!");
     }
 }

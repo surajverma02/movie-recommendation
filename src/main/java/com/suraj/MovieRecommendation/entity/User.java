@@ -11,6 +11,7 @@ import java.util.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "user")
 public class User{
 
     @Id
@@ -18,9 +19,11 @@ public class User{
     private Long userId;
     private String username;
     private String password;
-
     private List<String> roles = new ArrayList<>();
 
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Favourite favourite;
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Wishlist wishlist;
 }

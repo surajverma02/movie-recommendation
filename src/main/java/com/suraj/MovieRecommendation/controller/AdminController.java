@@ -1,6 +1,5 @@
 package com.suraj.MovieRecommendation.controller;
 
-import com.suraj.MovieRecommendation.entity.Actor;
 import com.suraj.MovieRecommendation.entity.User;
 import com.suraj.MovieRecommendation.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

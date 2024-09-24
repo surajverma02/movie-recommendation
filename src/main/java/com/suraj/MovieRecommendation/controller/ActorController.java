@@ -1,9 +1,7 @@
 package com.suraj.MovieRecommendation.controller;
 
 import com.suraj.MovieRecommendation.entity.Actor;
-import com.suraj.MovieRecommendation.entity.Producer;
 import com.suraj.MovieRecommendation.service.ActorService;
-import com.suraj.MovieRecommendation.service.ProducerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
