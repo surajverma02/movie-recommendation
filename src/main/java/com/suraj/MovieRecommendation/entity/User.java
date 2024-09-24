@@ -1,5 +1,6 @@
 package com.suraj.MovieRecommendation.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,8 +23,10 @@ public class User{
     private List<String> roles = new ArrayList<>();
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonManagedReference
     private Favourite favourite;
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonManagedReference
     private Wishlist wishlist;
 }
