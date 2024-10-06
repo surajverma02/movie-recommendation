@@ -15,10 +15,20 @@ public class AuthController {
     @Autowired
     private UserService userService;
 
-    @PostMapping("/register")
+    @PostMapping("/register-user")
     public ResponseEntity<User> registerUser(@RequestBody User user) {
         try {
             return new ResponseEntity<>(userService.registerUser(user), HttpStatus.OK);
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PostMapping("/register-admin")
+    public ResponseEntity<User> registerAdmin(@RequestBody User user) {
+        try {
+            return new ResponseEntity<>(userService.registerAdmin(user), HttpStatus.OK);
         }catch (Exception e){
             System.out.println(e.getMessage());
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

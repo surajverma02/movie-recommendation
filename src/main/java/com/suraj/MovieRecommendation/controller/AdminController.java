@@ -17,16 +17,6 @@ public class AdminController {
     @Autowired
     private UserService userService;
 
-    @PostMapping("/register")
-    public ResponseEntity<User> registerAdmin(@RequestBody User user) {
-        try {
-            return new ResponseEntity<>(userService.registerAdmin(user), HttpStatus.OK);
-        }catch (Exception e){
-            System.out.println(e.getMessage());
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-    }
-
     @GetMapping("/all")
     public ResponseEntity<List<User>> getAllUsers() {
         try {
