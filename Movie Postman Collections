@@ -1,0 +1,604 @@
+{
+	"info": {
+		"_postman_id": "cb5f3ebe-60ca-4cdc-b1ac-ed57b98c7db9",
+		"name": "Movie Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "33007315"
+	},
+	"item": [
+		{
+			"name": "Movie",
+			"item": [
+				{
+					"name": "All Movies",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": "localhost:8080/movie/all"
+					},
+					"response": []
+				},
+				{
+					"name": "Movie By ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:8080/movie/id/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Movie By Genre",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:8080/movie/genre/drama"
+					},
+					"response": []
+				},
+				{
+					"name": "Add Movie",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n \"movieName\": \"Golmal\",\r\n \"genre\": \"comedy\",\r\n \"year\": 2016\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8080/movie/add"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Movie",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "localhost:8080/movie/delete/3"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Movie",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n \"movieName\": \"Kalki\",\r\n \"genre\": \"Drama\",\r\n \"year\": 2016\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8080/movie/update/4"
+					},
+					"response": []
+				},
+				{
+					"name": "Add Producer To Movie",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:8080/movie/add-producer/1/2"
+					},
+					"response": []
+				},
+				{
+					"name": "Add Actor To Movie",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:8080/movie/add-actor/4/2"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Producer",
+			"item": [
+				{
+					"name": "All Producer",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiUk9MRV9bXSIsInN1YiI6ImFkbWluIiwiaWF0IjoxNzI2OTIwNDA2LCJleHAiOjE3MjY5MjEwMDZ9.qc7L5iyAXMcM4jOPAD5x-U1iFEir6u1iLgonrTHeeA0"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "localhost:8080/producer/all"
+					},
+					"response": []
+				},
+				{
+					"name": "Producer By ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:8080/producer/id/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Producer By Name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:8080/producer/name/producer1"
+					},
+					"response": []
+				},
+				{
+					"name": "Add Producer",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n \"producerName\": \"producer2\",\r\n \"productionCompany\": \"company2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8080/producer/add"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Producer",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "localhost:8080/producer/delete/3"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Producer",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n \"producerName\": \"producer2\",\r\n \"productionCompany\": \"company2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8080/producer/update/2"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Actor",
+			"item": [
+				{
+					"name": "All Actor",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiUk9MRV9bXSIsInN1YiI6ImFkbWluIiwiaWF0IjoxNzI2OTIwNDA2LCJleHAiOjE3MjY5MjEwMDZ9.qc7L5iyAXMcM4jOPAD5x-U1iFEir6u1iLgonrTHeeA0"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "localhost:8080/actor/all"
+					},
+					"response": []
+				},
+				{
+					"name": "Actor By ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:8080/actor/id/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Actor By Name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:8080/actor/name/actor1"
+					},
+					"response": []
+				},
+				{
+					"name": "Add Actor",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n \"actorName\": \"actor2\",\r\n \"actorRole\": \"role2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8080/actor/add"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Actor",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "localhost:8080/actor/delete/3"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Actor",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n \"actorName\": \"actor4\",\r\n \"actorRole\": \"role4\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8080/actor/update/4"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Register User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n \"username\": \"user1\",\r\n \"password\": \"user1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8080/auth/register-user"
+					},
+					"response": []
+				},
+				{
+					"name": "Register Admin",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n \"username\": \"admin1\",\r\n \"password\": \"admin1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8080/auth/register-admin"
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n \"username\": \"admin\",\r\n \"password\": \"admin123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8080/auth/login"
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:8080/auth/logout"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Admin",
+			"item": [
+				{
+					"name": "All User",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:8080/admin/all"
+					},
+					"response": []
+				},
+				{
+					"name": "User By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:8080/admin/id/1"
+					},
+					"response": []
+				},
+				{
+					"name": "User By Name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:8080/admin/name/user1"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete By Name",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "localhost:8080/admin/delete-name/user1"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete By Id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "localhost:8080/admin-delete/id/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": "localhost:8080/admin/update-user/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Update User As Admin",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": "localhost:8080/admin/update-admin/1"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Health",
+			"item": [
+				{
+					"name": "User Health",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"password": "3e349281-9efb-4513-853f-70ab30ce4bb8",
+								"username": "user"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "localhost:8080/user/health-check"
+					},
+					"response": []
+				},
+				{
+					"name": "Admin Health",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"password": "3e349281-9efb-4513-853f-70ab30ce4bb8",
+								"username": "user"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "localhost:8080/admin/health-check"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Favourite",
+			"item": [
+				{
+					"name": "Add Favourite",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"favouriteName\":\"favourite2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8080/favourite/add"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Favourite Movie",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:8080/favourite/all/id/2"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Favourite",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "localhost:8080/favourite/delete/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Add Movie To Favourite",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": "localhost:8080/favourite/update/2/3"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Wishlist",
+			"item": [
+				{
+					"name": "Add Wishlist",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"wishlistName\":\"wish2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8080/wishlist/add"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Wishlist Movie",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:8080/wishlist/all/id/2"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Wishlist",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "localhost:8080/wishlist/delete/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Add Movie To Wishlist",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": "localhost:8080/wishlist/update/2/1"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Add Wishlist",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:8080/user/add-wishlist/2/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Add Favourite",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:8080/user/add-favourite/2/2"
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
