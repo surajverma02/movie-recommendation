@@ -5,6 +5,7 @@ import com.suraj.MovieRecommendation.repository.FavouriteRepository;
 import com.suraj.MovieRecommendation.repository.UserRepository;
 import com.suraj.MovieRecommendation.repository.WishlistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -13,6 +14,9 @@ import java.util.Optional;
 
 @Service
 public class UserService {
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
     private UserRepository userRepository;
@@ -27,7 +31,7 @@ public class UserService {
 //    POST METHODS
 
     public User registerUser(User user){
-        //user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         if(user.getRoles().isEmpty()) {
             user.setRoles(Arrays.asList("USER"));
         }
@@ -35,7 +39,7 @@ public class UserService {
     }
 
     public User registerAdmin(User user){
-        //user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         if(user.getRoles().isEmpty()) {
             user.setRoles(Arrays.asList("USER", "ADMIN"));
         }
@@ -86,7 +90,7 @@ public class UserService {
             User customUser = oldUser.get();
             customUser.setUsername(user.getUsername());
             customUser.setPassword(user.getPassword());
-            //oldUser.setPassword(passwordEncoder.encode(user.getPassword()));
+            customUser.setPassword(passwordEncoder.encode(user.getPassword()));
             return userRepository.save(customUser);
         }
         throw new RuntimeException("User not found!");

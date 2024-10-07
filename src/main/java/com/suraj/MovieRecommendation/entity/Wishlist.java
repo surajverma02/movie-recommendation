@@ -1,7 +1,9 @@
 package com.suraj.MovieRecommendation.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,10 +25,8 @@ public class Wishlist {
 
     @OneToOne
     @JoinColumn(name = "user_id")
-    @JsonBackReference
     private User user;
 
     @ManyToMany(mappedBy = "wishlist", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JsonManagedReference
     private List<Movie> wishlistMovie = new ArrayList<>();
 }

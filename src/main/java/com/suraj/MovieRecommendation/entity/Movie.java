@@ -1,6 +1,8 @@
 package com.suraj.MovieRecommendation.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,7 +25,6 @@ public class Movie {
 
     @ManyToOne
     @JoinColumn(name = "producer_id")
-    @JsonBackReference
     private Producer producer;
 
     @ManyToMany(fetch = FetchType.EAGER)
@@ -32,7 +33,6 @@ public class Movie {
             joinColumns = @JoinColumn(name = "movie_id"),
             inverseJoinColumns = @JoinColumn(name = "actor_id")
     )
-    @JsonBackReference
     private List<Actor> actors = new ArrayList<>();
 
     @ManyToMany
@@ -41,7 +41,6 @@ public class Movie {
             joinColumns = @JoinColumn(name = "movie_id"),
             inverseJoinColumns = @JoinColumn(name = "favourite_id")
     )
-    @JsonBackReference
     private List<Favourite> favourite = new ArrayList<>();
 
     @ManyToMany
@@ -50,6 +49,5 @@ public class Movie {
             joinColumns = @JoinColumn(name = "movie_id"),
             inverseJoinColumns = @JoinColumn(name = "wishlist_id")
     )
-    @JsonBackReference
     private List<Wishlist> wishlist = new ArrayList<>();
 }
